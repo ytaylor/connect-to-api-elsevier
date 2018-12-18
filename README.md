@@ -23,8 +23,7 @@ To connect to API ELSevier is necesary preview have a API Key and save in a json
     "apikey": "XXXXXXXXXXXXXXXXXXXXXXXX"
 }
 ```
-Then is posible 
-
+Then is posible with file config do the connection wit the API. 
 ```
 import requests
 import json
@@ -42,5 +41,19 @@ citations_df = pd.DataFrame.from_records(citations_rows[1:], columns=citations_r
 
 ```
 
-## Rerieve Information 
+## Rerieve information 
 
+The query to do the API has many formats in dependence and we can see in the oficial page of the ElSevier. For example:
+
+```
+string_title= 'Exploring the Betrothed Lovers' 
+title = 'TITLE(\"' + string_title + '\")'
+params = {'query': title}
+response = requests.get("https://api.elsevier.com/content/abstract/scopus_id/84905855329",
+                    headers={'Accept':'application/json', 
+                             'X-ELS-APIKey': config['apikey']})
+if response.status_code ==200:
+  #results= response.json()
+  results = json.loads(response.text.encode('utf-8'))
+  print(response.json())
+```
